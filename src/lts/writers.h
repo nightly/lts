@@ -22,7 +22,7 @@ namespace nightly {
 	* @brief std::vector operator<< overload delimited by commas
 	*/
 	template <typename T>
-	static std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+	std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
 		for (std::size_t i = 0; i < vec.size(); ++i) {
 			os << vec[i];
 			if (i != vec.size() - 1) {
@@ -36,7 +36,7 @@ namespace nightly {
 	 * @brief std::pair operator<<
 	 */
 	template <typename T, typename U>
-	static std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& pair) {
+	std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& pair) {
 		os << pair.first;
 		os << ": ";
 		os << pair.second;
