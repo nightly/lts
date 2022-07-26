@@ -54,8 +54,8 @@ namespace nightly {
 			return;
 		}
 		for (const auto& t : state.transitions_) {
-			os << "	" << "\"" << name << "\"" << " -> " << "\"" << t.to() << "\"" << " [label = " << "\"";
-			os << t.label() << "\"];\n";
+			os << "	" << "\"" << name << "\"" << " -> " << "\"" << t.to() << "\"" << " [label = " << "<";
+			os << t.label() << ">];\n";
 		}
 	}
 
@@ -67,7 +67,7 @@ namespace nightly {
 		os << "	edge [fontname=\"Helvetica, Arial, sans - serif\"]\n";
 		os << "	rankdir=LR;\n";
 		os << "	node [shape = doublecircle];\n";
-		os << "	" << "\"" << lts.initial_state() << "\"" << ";\n";
+		os << "	" << "<" << lts.initial_state() << ">" << ";\n";
 		os << "	node [shape = circle];\n";
 		for (const auto& pair : lts.states()) {
 			PrintState(os, pair.second, pair.first);
