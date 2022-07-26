@@ -19,13 +19,15 @@ namespace nightly {
 	/**
 	 * @brief Parses a text file into LTS (see `data/` folder for examples)
 	 * First line of the file sets the initial state. Following lines add a transition in the form of:
-	 *		StartState Action EndState
+	 *      InitialState
+	 *		StartState. Action. EndState.
 	 * @param lts: the Labelled Transition System to parse into
 	 * @param path: path to text file
+	 * @param delimiter: the delimiter used when parsing transitions to separate arguments
 	 * @exception Propagates std::ifstream failure
 	 */
 	template <typename StateT, typename TransitionT, typename HashF>
-	void ReadFromFile(LTS<StateT, TransitionT, HashF>& lts, const std::filesystem::path& filepath) {
+	void ReadFromFile(LTS<StateT, TransitionT, HashF>& lts, const std::filesystem::path& filepath, const char delimiter = '.') {
 		std::string line;
 		bool first_line = true;
 		try {
@@ -50,9 +52,9 @@ namespace nightly {
 				TransitionT label;
 
 				std::istringstream ss(line);
-				std::getline(ss, start_state_str, '.');
-				std::getline(ss, label_str, '.');
-				std::getline(ss, end_state_str, '.');
+				std::getline(ss, start_state_str, delimiter);
+				std::getline(ss, label_str, delimiter);
+				std::getline(ss, end_state_str, delimiter);
 
 				start_state = ParseStateString<StateT>(lts::internal::Trim(start_state_str));
 				end_state = ParseStateString<StateT>(lts::internal::Trim(end_state_str));
