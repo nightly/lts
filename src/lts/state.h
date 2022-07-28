@@ -13,7 +13,7 @@ namespace nightly {
 	template <typename KeyT = std::string, typename TransitionT = std::string>
 	class State {
 	public:
-		std::vector<Transition<TransitionT, KeyT>> transitions_;
+		std::vector<Transition<KeyT, TransitionT>> transitions_;
 	public:
 
 		/** 
@@ -24,11 +24,11 @@ namespace nightly {
 
 		~State() = default;
 
-		std::vector<Transition<TransitionT, KeyT>>& transitions() {
+		std::vector<Transition<KeyT, TransitionT>>& transitions() {
 			return transitions_;
 		}
 
-		const std::vector<Transition<TransitionT, KeyT>>& transitions() const {
+		const std::vector<Transition<KeyT, TransitionT>>& transitions() const {
 			return transitions_;
 		}
 

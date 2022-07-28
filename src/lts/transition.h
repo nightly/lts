@@ -8,7 +8,7 @@ namespace nightly {
 	 * @tparam KeyT: the type of the State which the transition points to
 	 * @tparam TransitionT: the label of the given transition
 	 */
-	template <typename TransitionT = std::string, typename KeyT = std::string>
+	template <typename KeyT = std::string, typename TransitionT = std::string>
 	class Transition {
 	private:
 		TransitionT label_;
@@ -26,7 +26,6 @@ namespace nightly {
 
 		Transition(TransitionT&& label, KeyT&& to)
 			: label_(std::move(label)), to_(std::move(to)) {}
-
 
 		Transition(const Transition& other)
 			: label_(other.label_), to_(other.to_) {}
@@ -56,6 +55,10 @@ namespace nightly {
 			return label_;
 		}
 
+		TransitionT& label() {
+			return label_;
+		}
+
 		void set_label(const TransitionT& label) {
 			label_ = label;
 		}
@@ -65,6 +68,10 @@ namespace nightly {
 		}
 
 		const KeyT& to() const {
+			return to_;
+		}
+
+		KeyT& to() {
 			return to_;
 		}
 
