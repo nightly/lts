@@ -43,12 +43,12 @@ namespace nightly {
 		return os;
 	}
 
-	// ==============================
-	// LTS & State ostream & ofstream
-	// ==============================
+	// ========================================
+	// LTS & State Ofstream & GraphViz
+	// ========================================
 
 	template <typename KeyT, typename TransitionT>
-	void PrintState(std::ofstream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {
+	void PrintGraphVizState(std::ofstream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {
 		if (state.IsEmpty()) {
 			os << "	" << "\"" << name << "\"" << "\n";
 			return;
@@ -60,21 +60,36 @@ namespace nightly {
 	}
 
 	template <typename KeyT, typename TransitionT, typename HashF>
-	std::ofstream& operator<<(std::ofstream& os, const LTS<KeyT, TransitionT, HashF>& lts) {
+	void PrintGraphVizLTS(std::ofstream& os, const LTS<KeyT, TransitionT, HashF>& lts, const std::string& font, bool font_check) {
+		std::string font_str = "fontname=\"" + font;
+		if (font_check) {
+			font_str += ", Ink Free";
+		}
+		font_str += ", Helvetica, Arial, sans - serif\"";
+
 		os << "digraph finite_state_machine {\n";
-		os << "	fontname=\"Helvetica, Arial, sans - serif\"\n";
-		os << "	node [fontname=\"Helvetica, Arial, sans - serif\"]\n";
-		os << "	edge [fontname=\"Helvetica, Arial, sans - serif\"]\n";
+		os << "	" << font_str << "\n";
+		os << "	node " << "[" << font_str << "]\n";
+		os << "	edge " << "[" << font_str << "]\n";
 		os << "	rankdir=LR;\n";
 		os << "	node [shape = doublecircle];\n";
 		os << "	" << "<" << lts.initial_state() << ">" << ";\n";
 		os << "	node [shape = circle];\n";
 		for (const auto& pair : lts.states()) {
-			PrintState(os, pair.second, pair.first);
+			PrintGraphVizState(os, pair.second, pair.first);
 		}
 		os << "}";
+	}
+
+	template <typename KeyT, typename TransitionT, typename HashF>
+	std::ofstream& operator<<(std::ofstream& os, const LTS<KeyT, TransitionT, HashF>& lts) {
+		PrintGraphVizLTS(os, lts, "Helvetica Neue", false);
 		return os;
 	}
+
+	// ========================================
+	// LTS & State Ostream
+	// ========================================
 
 	template <typename KeyT, typename TransitionT>
 	void PrintState(std::ostream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {
