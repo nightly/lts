@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <unordered_set>
 
 #include "lts/state.h"
 
@@ -24,6 +25,7 @@ namespace nightly {
 	private:
 		std::unordered_map<KeyT, State, HashF> states_;
 		KeyT initial_state_;
+		std::unordered_set<KeyT, HashF> final_states_;
 	public:
 		LTS() = default;
 
@@ -62,6 +64,14 @@ namespace nightly {
 				total += v.transitions_.size();
 			}
 			return total;
+		}
+
+		void AddFinalState(const KeyT& state) {
+			final_states_.insert(state);
+		}
+
+		const std::unordered_set<KeyT, HashF>& final_states() const {
+			return final_states_;
 		}
 
 		/**

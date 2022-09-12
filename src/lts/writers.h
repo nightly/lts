@@ -72,8 +72,20 @@ namespace nightly {
 		os << "	node " << "[" << font_str << "]\n";
 		os << "	edge " << "[" << font_str << "]\n";
 		os << "	rankdir=LR;\n";
+
+		// Initial state
 		os << "	node [shape = doublecircle];\n";
 		os << "	" << "<" << lts.initial_state() << ">" << ";\n";
+
+		// Final state
+		if (!lts.final_states().empty()) {
+			os << "	node [shape = Mcircle];\n";
+			for (const auto& s : lts.final_states()) {
+				os << "	" << "<" << s << ">" << ";\n";
+			}
+		}
+
+		// Regular states and transitions
 		os << "	node [shape = circle];\n";
 		for (const auto& pair : lts.states()) {
 			PrintGraphVizState(os, pair.second, pair.first);

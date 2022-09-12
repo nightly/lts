@@ -27,3 +27,4 @@ endmacro()
 # Test Suite
 package_add_test("lts-base" "lts/lts.cpp")
 package_add_test("lts-parsers" "lts/parsers.cpp")
+package_add_test("lts-export" "lts/export.cpp")
