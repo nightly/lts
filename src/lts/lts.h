@@ -139,13 +139,6 @@ namespace nightly {
 			return states_.at(key);
 		}
 
-		template <typename _KeyT, typename _TransitionT, typename _HashF>
-		friend std::ostream& operator<<(std::ostream& os, const LTS<_KeyT, _TransitionT, _HashF>& lts);
-
-		template <typename _KeyT, typename _TransitionT, typename _HashF>
-		friend std::ofstream& operator<<(std::ofstream& os, const LTS<_KeyT, _TransitionT, _HashF>& lts);
-
-	private:
 		bool AddState(const KeyT& name, State&& state) {
 			if (!HasState(name)) {
 				states_.emplace(name, std::move(state));
@@ -161,6 +154,13 @@ namespace nightly {
 			}
 			return false;
 		}
+
+		template <typename _KeyT, typename _TransitionT, typename _HashF>
+		friend std::ostream& operator<<(std::ostream& os, const LTS<_KeyT, _TransitionT, _HashF>& lts);
+
+		template <typename _KeyT, typename _TransitionT, typename _HashF>
+		friend std::ofstream& operator<<(std::ofstream& os, const LTS<_KeyT, _TransitionT, _HashF>& lts);
+
 	};
 
 }
