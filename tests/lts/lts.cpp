@@ -1,9 +1,6 @@
 #include <gtest/gtest.h>
 #include "lts/lts.h"
 
-#include "lts/state.h"
-#include "lts/writers.h"
-
 TEST(LTS, Equality) {
 	nightly::LTS got;
 	nightly::LTS expected;

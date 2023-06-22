@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "lts/lts.h"
-#include "lts/writers.h"
 #include "lts/internal/directory.h"
 
 TEST(ParseLTS, LTS1) {

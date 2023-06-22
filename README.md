@@ -4,9 +4,15 @@
 ![ci.yml](https://github.com/nightly/lts/actions/workflows/ci.yml/badge.svg)
 
 Templated implementation of a Labelled Transition System class, with the three following template parameters:
-- StateT: the type of the state (defaults to `std::string`)
-- TransitionT: the type of transitions (defaults to `std::string`)
-- HashF: the hash function that is used when storing the state type in the underlying unordered_map container. Defaults to `std::hash<StateT>`.
+- `StateT`: the type of the state (defaults to `std::string`)
+- `TransitionT`: the type of transitions (defaults to `std::string`)
+- `HashF`: the hash function that is used when storing the state type in the underlying unordered_map container. Defaults to `std::hash<StateT>`.
+
+## Adding custom types
+To use this library with custom data types for states and transitions, the following should be done:
+- For state parsing from strings, add a template specialization for `ParseStateString`.
+- For transition parsing from strings, add a template specialization for `ParseTransitionString`.
+- For outputting states and transitions, simply uses std::ostream& for console and std::ofstream& for files (GraphViz) for the data type.
 
 ## Build instructions
 ### Requirements

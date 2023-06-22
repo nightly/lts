@@ -3,6 +3,7 @@ digraph finite_state_machine {
 	node [fontname="Helvetica Neue, Helvetica, Arial, sans - serif"]
 	edge [fontname="Helvetica Neue, Helvetica, Arial, sans - serif"]
 	rankdir=LR;
+	forcelabels=true;
 	node [shape = doublecircle];
 	<s0>;
 	node [shape = Mcircle];

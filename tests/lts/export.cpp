@@ -5,8 +5,8 @@
 #include <sstream>
 
 #include "lts/state.h"
-#include "lts/writers.h"
-#include "lts/export.h"
+#include "lts/writers/writers.h"
+#include "lts/writers/styling.h"
 
 TEST(LTS, FinalStates) {
 	nightly::LTS<std::string, std::string, std::hash<std::string>> got;
@@ -25,7 +25,8 @@ TEST(LTS, FinalStates) {
 	std::stringstream ex_buffer;
 	ex_buffer << s1.rdbuf();
 
-	nightly::ExportToFile(got, "final_states_test.gv");
+	nightly::Styling style;
+	nightly::ExportToFile(got, "final_states_test.gv", style, false);
 	std::ifstream s2("final_states_test.gv");
 	std::stringstream got_buffer;
 	got_buffer << s2.rdbuf();

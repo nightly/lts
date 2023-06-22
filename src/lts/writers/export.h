@@ -6,8 +6,9 @@
 
 #include "lts/lts.h"
 #include "lts/state.h"
-#include "lts/writers.h"
+#include "lts/writers/ofstream.h"
 #include "lts/internal/directory.h"
+#include "lts/writers/styling.h"
 
 namespace nightly {
 
@@ -21,13 +22,13 @@ namespace nightly {
 	 */
 	template <typename KeyT = std::string, typename TransitionT = std::string, typename HashF = std::hash<KeyT>>
 	void ExportToFile(const LTS<KeyT, TransitionT, HashF>& lts, const std::filesystem::path& path,
-		             const std::string& font = "Helvetica Neue", bool font_check = false) {
+		             const Styling& style, bool write_x_label = false) {
 		std::ofstream stream;
 		stream.exceptions(std::ofstream::badbit);
 		CreateDirectoryForPath(path);
 		try {
 			stream.open(path, std::ios::out | std::ios::trunc);
-			PrintGraphVizLTS(stream, lts, font, font_check);
+			PrintGraphVizLTS(stream, lts, style, write_x_label);
 		} catch (const std::ofstream::failure& e) {
 			throw;
 		}
