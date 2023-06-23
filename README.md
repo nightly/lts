@@ -10,9 +10,11 @@ Templated implementation of a Labelled Transition System class, with the three f
 
 ## Adding custom types
 To use this library with custom data types for states and transitions, the following should be done:
+- Provide template specialization for `std::hash<CustomType>`, or specify another hash function in the 3rd optional parameter of the LTS template list
 - For state parsing from strings, add a template specialization for `ParseStateString`.
 - For transition parsing from strings, add a template specialization for `ParseTransitionString`.
 - For outputting states and transitions, simply uses std::ostream& for console and std::ofstream& for files (GraphViz) for the data type.
+
 
 ## Build instructions
 ### Requirements

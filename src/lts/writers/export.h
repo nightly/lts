@@ -22,7 +22,7 @@ namespace nightly {
 	 */
 	template <typename KeyT = std::string, typename TransitionT = std::string, typename HashF = std::hash<KeyT>>
 	void ExportToFile(const LTS<KeyT, TransitionT, HashF>& lts, const std::filesystem::path& path,
-		             const Styling& style, bool write_x_label = false) {
+		             const Styling& style = Styling(), bool write_x_label = false) {
 		std::ofstream stream;
 		stream.exceptions(std::ofstream::badbit);
 		CreateDirectoryForPath(path);
