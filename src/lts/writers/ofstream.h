@@ -22,11 +22,14 @@ namespace nightly {
 	template <typename KeyT, typename TransitionT>
 	void PrintGraphVizState(std::ofstream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {
 		if (state.IsEmpty()) {
-			os << "	" << "\"" << name << "\"" << "\n";
+			os << "	\"";
+			os << name << "\"\n";
 			return;
 		}
 		for (const auto& t : state.transitions_) {
-			os << "	" << "\"" << name << "\"" << " -> " << "\"" << t.to() << "\"" << " [label = " << "<";
+			os << "	" << "\"";
+			os << name << "\" -> \"";
+			os << t.to() << "\"" << " [label = " << "<";
 			os << t.label() << ">];\n";
 		}
 	}
@@ -43,24 +46,27 @@ namespace nightly {
 		os << "	rankdir=" << style.rank_dir << ";\n";
 		os << "	forcelabels=true;\n";
 
-		// Initial state
+		// Initial states
 		os << "	" << style.initial_nodes << ";\n";
-		os << "	" << "<" << lts.initial_state() << ">" << ";\n";
+		os << "	" << "<";
+		os << lts.initial_state() << ">" << ";\n";
 
 		// X labels
 		if (write_x_label) {
 			for (const auto& pair : lts.states()) {
-				os << "	" << "\"" << pair.first << "\"" << " [xlabel=";
+				os << "	\"";
+				os << pair.first << "\"" << " [xlabel=";
 				WriteXLabel<KeyT>(pair.first, os);
 				os << "]\n";
 			}
 		}
 
-		// Final state
+		// Final states
 		if (!lts.final_states().empty()) {
 			os << "	" << style.final_nodes << ";\n";
 			for (const auto& s : lts.final_states()) {
-				os << "	" << "<" << s << ">" << ";\n";
+				os << "	" << "<";
+				os<< s << ">" << ";\n";
 			}
 		}
 
