@@ -17,14 +17,13 @@ namespace nightly {
 
 	template <typename KeyT, typename TransitionT>
 	void PrintState(std::ostream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {
-		os << "State name: " << name << '\n';
+		os << "State: " << name << '\n';
 		if (state.transitions_.empty()) {
-			os << "  With 0 transitions" << '\n';
+			os << "  With no transitions" << '\n';
 			return;
 		}
-		os << "  Transitions: " << '\n';
 		for (const auto& pair : state.transitions_) {
-			os << "    Label: " << pair.label() << " " << "End State: " << pair.to() << '\n';
+			os << "  Label: " << pair.label() << " -> " << pair.to() << '\n';
 		}
 	}
 
