@@ -37,6 +37,10 @@ namespace nightly {
 
 		const std::unordered_map<KeyT, State, HashF>& states() const {
 			return states_;
+		}		
+		
+		std::unordered_map<KeyT, State, HashF>& states() {
+			return states_;
 		}
 
 		const KeyT& initial_state() const {
