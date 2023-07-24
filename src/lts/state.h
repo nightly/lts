@@ -14,6 +14,7 @@ namespace nightly {
 	class State {
 	public:
 		std::vector<Transition<KeyT, TransitionT>> transitions_;
+		const KeyT* key_;
 	public:
 
 		/** 
@@ -21,7 +22,6 @@ namespace nightly {
 		 * @tparam TransitionT : defines the data type used to represent transitions. E.g. std::string, CompositeOperation 
 		 */
 		State() = default;
-
 		~State() = default;
 
 		std::vector<Transition<KeyT, TransitionT>>& transitions() {

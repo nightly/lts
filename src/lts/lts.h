@@ -155,7 +155,11 @@ namespace nightly {
 		template <typename S>
 		bool AddState(const KeyT& name, S&& state) {
 			if (!HasState(name)) {
-				states_.emplace(name, std::forward<S>(state));
+				auto pair = states_.emplace(name, std::forward<S>(state));
+				if (pair.second) {
+					State& st = pair.first->second;
+					st.key_ = &(pair.first->first);
+				}
 				return true;
 			}
 			return false;

@@ -29,3 +29,13 @@ TEST(LTS, Find) {
 	ASSERT_EQ(*lts.Find("s2").value(), "s2");
 	ASSERT_EQ(lts.Find("s3").has_value(), false);
 }
+
+TEST(LTS, Pointer) {
+	nightly::LTS lts;
+	lts.AddTransition("s0", "a1", "s1");
+	lts.AddTransition("s1", "a2", "s2");
+	lts.AddTransition("s2", "a3", "s0");
+	
+	ASSERT_EQ(*lts.states().at("s2").key_, "s2");
+	ASSERT_EQ(*lts.states().at("s0").key_, "s0");
+}
