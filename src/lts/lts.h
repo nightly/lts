@@ -4,8 +4,8 @@
 #include <string>
 #include <ostream>
 #include <fstream>
+#include <optional>
 #include <vector>
-#include <queue>
 #include <unordered_set>
 
 #include "lts/state.h"
@@ -127,6 +127,15 @@ namespace nightly {
 			return (initial_state_ == other.initial_state_) && (states_ == other.states_);
 		}
 
+		std::optional<const KeyT*> Find(const KeyT& search_key) const {
+			auto it = states_.find(search_key);
+			if (it == states_.end()) {
+				return std::nullopt;
+			} else {
+				return &(it->first);
+			}
+		}
+
 		State& at(const KeyT& key) {
 			return states_[key];
 		}
@@ -143,17 +152,10 @@ namespace nightly {
 			return states_.at(key);
 		}
 
-		bool AddState(const KeyT& name, State&& state) {
+		template <typename S>
+		bool AddState(const KeyT& name, S&& state) {
 			if (!HasState(name)) {
-				states_.emplace(name, std::move(state));
-				return true;
-			}
-			return false;
-		}
-
-		bool AddState(const KeyT& name, const State& state) {
-			if (!HasState(name)) {
-				states_.emplace(name, state);
+				states_.emplace(name, std::forward<S>(state));
 				return true;
 			}
 			return false;
@@ -170,7 +172,7 @@ namespace nightly {
 }
 
 /* 
-	@Todo: unordered map STL container should be a template parameter or replaced
+	@Todo: unordered map STL container should be a template parameter or replaced (std::flat_map)
 */
 
 #include "lts/writers/writers.h"
