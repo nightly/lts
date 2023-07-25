@@ -4,7 +4,7 @@ set(LTS_SOURCES "lts/lts.h" "lts/state.h" "lts/transition.h"
 
 "lts/parsers/parsers.h" "lts/parsers/state.cpp" "lts/parsers/state.cpp" "lts/parsers/transition.h" "lts/parsers/transition.cpp"
 
-"lts/writers/writers.h" "lts/writers/export.h" "lts/writers/generic.h" "lts/writers/ostream.h" "lts/writers/ofstream.h"
+"lts/writers/writers.h" "lts/writers/export.h" "lts/writers/ostream.h" "lts/writers/ofstream.h"
 "lts/writers/styling.h"
 
 "lts/internal/directory.h" "lts/internal/directory.cpp" "lts/internal/strings.h" "lts/internal/strings.cpp"

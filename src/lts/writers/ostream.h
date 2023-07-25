@@ -7,13 +7,25 @@
 #include "lts/lts.h"
 #include "lts/state.h"
 #include "lts/internal/empty.h"
-#include "lts/writers/generic.h"
 
 namespace nightly {
 
 	// ========================================
 	// LTS & State Ostream
 	// ========================================
+
+	template <typename T>
+	static std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+		os << "[";
+		for (std::size_t i = 0; i < vec.size(); ++i) {
+			os << vec[i];
+			if (i != vec.size() - 1) {
+				os << ", ";
+			}
+		}
+		os << "]";
+		return os;
+	}
 
 	template <typename KeyT, typename TransitionT>
 	void PrintState(std::ostream& os, const nightly::State<KeyT, TransitionT>& state, const KeyT& name) {

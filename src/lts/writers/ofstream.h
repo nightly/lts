@@ -9,7 +9,6 @@
 #include "lts/lts.h"
 #include "lts/state.h"
 #include "lts/internal/empty.h"
-#include "lts/writers/generic.h"
 #include "lts/writers/styling.h"
 
 namespace nightly {
