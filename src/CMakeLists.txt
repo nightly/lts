@@ -20,10 +20,3 @@ target_include_directories(lts
 	PUBLIC
 		${PROJECT_SOURCE_DIR}/src
 )
-
-add_subdirectory("${PROJECT_SOURCE_DIR}/external/nlohmann-json" "external/nlohmann-json")
-
-target_link_libraries(lts 
-    PUBLIC 
-        nlohmann_json
-)

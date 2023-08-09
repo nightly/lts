@@ -21,9 +21,9 @@ TEST(LTS, FinalStates) {
 	got.AddFinalState("s5");
 	got.AddTransition("s5", "a6", "s6");
 
-	std::ifstream s1("../../tests/lts/testdata/export/final_states.gv");
-	std::stringstream ex_buffer;
-	ex_buffer << s1.rdbuf();
+	std::ifstream s1("../../tests/lts/testdata/export_final_states.gv");
+	std::stringstream expected_buffer;
+	expected_buffer << s1.rdbuf();
 
 	nightly::Styling style;
 	nightly::ExportToFile(got, "final_states_test.gv", style, false);
@@ -31,5 +31,5 @@ TEST(LTS, FinalStates) {
 	std::stringstream got_buffer;
 	got_buffer << s2.rdbuf();
 
-	ASSERT_EQ(got_buffer.str(), ex_buffer.str());
+	ASSERT_EQ(got_buffer.str(), expected_buffer.str());
 }

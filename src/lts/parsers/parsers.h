@@ -7,8 +7,6 @@
 #include <filesystem>
 #include <sstream>
 
-#include <nlohmann/json.hpp>
-
 #include "lts/lts.h"
 #include "lts/parsers/state.h"
 #include "lts/parsers/transition.h"
@@ -65,46 +63,6 @@ namespace nightly {
 		} catch (std::ifstream::failure& e) {
 			throw;
 		}
-	}
-
-	template <typename StateT, typename TransitionT, typename HashF>
-	void ParseJson(LTS<StateT, TransitionT, HashF>& lts, const nlohmann::json& j) {
-		std::string initial_state_str = j["initialState"];
-		StateT initial_state = ParseStateString<StateT>(initial_state_str);
-		lts.set_initial_state(initial_state);
-
-		for (const auto& t : j["transitions"]) {
-			std::string start_state_str, label_str, end_state_str;
-			StateT start_state, end_state;
-			TransitionT label;
-
-			start_state_str = t["startState"];
-			label_str = t["label"];
-			end_state_str = t["endState"];
-
-			start_state = ParseStateString<StateT>(start_state_str);
-			end_state = ParseStateString<StateT>(end_state_str);
-			label = ParseTransitionString<TransitionT>(label_str);
-		
-			lts.AddTransition(start_state, label, end_state);
-		}
-	}
-
-	/**
-	 * @brief Parses a JSON file into a Labelled Transition System 
-	 * The expected form consists of: initialState as a string, and an array of transitions
-	 * consisting of startState, label, and endState strings.
-	 */
-	template <typename StateT, typename TransitionT, typename HashF>
-	void ReadFromJsonFile(LTS<StateT, TransitionT, HashF>& lts, const std::filesystem::path& filepath) {
-		nlohmann::json j;
-		try {
-			std::ifstream stream(filepath);
-			stream >> j;
-		} catch (std::ifstream::failure& e) {
-			throw;
-		}
-		ParseJson(lts, j);
 	}
 
 
