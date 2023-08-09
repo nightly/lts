@@ -10,6 +10,8 @@
 
 #include "lts/state.h"
 
+#include <ankerl/unordered_dense.h>
+
 namespace nightly {
 
 	/**
@@ -23,9 +25,9 @@ namespace nightly {
 	public:
 		using State = nightly::State<KeyT, TransitionT>;
 	private:
-		std::unordered_map<KeyT, State, HashF> states_;
+		ankerl::unordered_dense::map<KeyT, State, HashF> states_;
 		KeyT initial_state_;
-		std::unordered_set<KeyT, HashF> final_states_;
+		ankerl::unordered_dense::set<KeyT, HashF> final_states_;
 	public:
 		LTS() = default;
 
@@ -35,11 +37,11 @@ namespace nightly {
 
 		~LTS() = default;
 
-		const std::unordered_map<KeyT, State, HashF>& states() const {
+		const ankerl::unordered_dense::map<KeyT, State, HashF>& states() const {
 			return states_;
 		}		
 		
-		std::unordered_map<KeyT, State, HashF>& states() {
+		ankerl::unordered_dense::map<KeyT, State, HashF>& states() {
 			return states_;
 		}
 
@@ -74,7 +76,7 @@ namespace nightly {
 			final_states_.insert(state);
 		}
 
-		const std::unordered_set<KeyT, HashF>& final_states() const {
+		const ankerl::unordered_dense::set<KeyT, HashF>& final_states() const {
 			return final_states_;
 		}
 
@@ -137,7 +139,7 @@ namespace nightly {
 		}
 
 		State& at(const KeyT& key) {
-			return states_[key];
+			return states_.at(key);
 		}
 
 		const State& at(const KeyT& key) const {
@@ -145,7 +147,7 @@ namespace nightly {
 		}
 
 		State& operator[](const KeyT& key) {
-			return states_[key];
+			return states_.at(key);
 		}
 
 		const State& operator[](const KeyT& key) const {
@@ -158,7 +160,6 @@ namespace nightly {
 				auto pair = states_.emplace(name, std::forward<S>(state));
 				if (pair.second) {
 					State& st = pair.first->second;
-					st.key_ = &(pair.first->first);
 				}
 				return true;
 			}
@@ -175,8 +176,5 @@ namespace nightly {
 
 }
 
-/* 
-	@Todo: unordered map STL container should be a template parameter or replaced (std::flat_map)
-*/
 
 #include "lts/writers/writers.h"

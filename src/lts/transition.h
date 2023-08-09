@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <functional>
+
+#include <boost/container_hash/hash.hpp>
 
 namespace nightly {
 	 
@@ -92,4 +95,27 @@ namespace nightly {
 		}
 
 	};
+}
+
+namespace std {
+	
+	template <typename T>
+	struct hash<std::vector<T>> {
+		size_t operator()(const std::vector<T>& vec) const {
+			return boost::hash_range(vec.begin(), vec.end());
+		}
+	};
+
+	template <typename KeyT, typename TransitionT>
+	struct hash<nightly::Transition<KeyT, TransitionT>> {
+
+		size_t operator()(const nightly::Transition<KeyT, TransitionT>& trans) const {
+			size_t seed;
+			boost::hash_combine(seed, std::hash<TransitionT>()(trans.label()));
+			boost::hash_combine(seed, std::hash<KeyT>()(trans.to()));
+			return seed;
+		}
+
+	};
+
 }

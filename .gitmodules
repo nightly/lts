@@ -1,3 +1,24 @@
 [submodule "external/googletest"]
 	path = external/googletest
 	url = https://github.com/google/googletest
+[submodule "external/unordered_dense"]
+	path = external/unordered_dense
+	url = https://github.com/martinus/unordered_dense
+[submodule "external/boost/container_hash"]
+	path = external/boost/container_hash
+	url = https://github.com/boostorg/container_hash
+[submodule "external/boost/config"]
+	path = external/boost/config
+	url = https://github.com/boostorg/config
+[submodule "external/boost/describe"]
+	path = external/boost/describe
+	url = https://github.com/boostorg/describe
+[submodule "external/boost/mp11"]
+	path = external/boost/mp11
+	url = https://github.com/boostorg/mp11
+[submodule "external/boost/type_traits"]
+	path = external/boost/type_traits
+	url = https://github.com/boostorg/type_traits
+[submodule "external/boost/static_assert"]
+	path = external/boost/static_assert
+	url = https://github.com/boostorg/static_assert

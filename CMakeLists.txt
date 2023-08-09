@@ -3,6 +3,9 @@
 project ("lts")
 
 option(LTS_RUN_TESTS "Run tests" ON)
+option(LTS_UNITY "Use unity/jumbo build mode" ON)
+
+set(CMAKE_VS_JUST_MY_CODE_DEBUGGING YES)
 
 # Library
 add_subdirectory(src)
