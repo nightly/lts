@@ -8,8 +8,7 @@
 #include "lts/writers/writers.h"
 #include "lts/writers/styling.h"
 
-// This is non-deterministic with unordered set
-TEST(LTS, DISABLED_FinalStates) {
+TEST(LTS, FinalStates) {
 	nightly::LTS<std::string, std::string, std::hash<std::string>> got;
 	got.set_initial_state("s0");
 	got.AddTransition("s0", "a1", "s1");

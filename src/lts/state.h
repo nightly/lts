@@ -8,14 +8,14 @@
 
 #include "lts/transition.h"
 
-#include <ankerl/unordered_dense.h>
+#include <vector>
 
 namespace nightly {
 
 	template <typename KeyT = std::string, typename TransitionT = std::string>
 	class State {
 	public:
-		ankerl::unordered_dense::set<Transition<KeyT, TransitionT>> transitions_;
+		std::vector<Transition<KeyT, TransitionT>> transitions_;
 	public:
 
 		/** 
@@ -25,20 +25,25 @@ namespace nightly {
 		State() = default;
 		~State() = default;
 
-		ankerl::unordered_dense::set<Transition<KeyT, TransitionT>>& transitions() {
+		std::vector<Transition<KeyT, TransitionT>>& transitions() {
 			return transitions_;
 		}
 
-		const ankerl::unordered_dense::set<Transition<KeyT, TransitionT>>& transitions() const {
+		const std::vector<Transition<KeyT, TransitionT>>& transitions() const {
 			return transitions_;
 		}
 
 		void AddTransition(const TransitionT& label, const KeyT& end_state) {
-			transitions_.emplace(label, end_state);
+			transitions_.emplace_back(label, end_state);
 		}
 
 		bool TransitionExists(const TransitionT& label, const KeyT& end_state) const {
-			return transitions_.contains(Transition(label, end_state));
+			for (const auto& t : transitions_) {
+				if ((t.first == label) && (t.second == end_state)) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		bool IsEmpty() const {
