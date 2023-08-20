@@ -95,6 +95,12 @@ namespace nightly {
 		}
 
 	};
+
+	template <typename KeyT, typename TransitionT>
+	std::ostream& operator<< (std::ostream& os, const Transition<KeyT, TransitionT>& transition) {
+		os << transition.label() << " > " << transition.to();
+	}
+
 }
 
 namespace std {

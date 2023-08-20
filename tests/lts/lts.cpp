@@ -41,6 +41,8 @@ TEST(LTS, Shuffle) {
 	lts.AddTransition("s1", "a", "s2");
 	lts.AddTransition("s1", "a", "s3");
 	
+	size_t cnt = lts.at("s1").transitions().size();
+	ASSERT_EQ(cnt, lts.at("s1").transitions_shuffled(rng).size());
 	for (const auto& x : lts.at("s1").transitions_shuffled(rng)) {
 		std::cout << x.to() << "\n";
 	}
