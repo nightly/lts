@@ -29,3 +29,19 @@ TEST(LTS, Find) {
 	ASSERT_EQ(*lts.Find("s2").value(), "s2");
 	ASSERT_EQ(lts.Find("s3").has_value(), false);
 }
+
+TEST(LTS, Shuffle) {
+	nightly::LTS<std::string, std::string> lts;
+	std::random_device rd;
+	std::mt19937 rng(rd());
+
+	lts.AddTransition("s0", "a1", "s1");
+	lts.AddTransition("s1", "a", "s0");
+	lts.AddTransition("s1", "a", "s1");
+	lts.AddTransition("s1", "a", "s2");
+	lts.AddTransition("s1", "a", "s3");
+	
+	for (const auto& x : lts.at("s1").transitions_shuffled(rng)) {
+		std::cout << x.to() << "\n";
+	}
+}

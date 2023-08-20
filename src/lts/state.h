@@ -5,10 +5,10 @@
 #include <ostream>
 #include <fstream>
 #include <utility>
+#include <algorithm>
+#include <random>
 
 #include "lts/transition.h"
-
-#include <vector>
 
 namespace nightly {
 
@@ -30,6 +30,11 @@ namespace nightly {
 		}
 
 		const std::vector<Transition<KeyT, TransitionT>>& transitions() const {
+			return transitions_;
+		}
+
+		const std::vector<Transition<KeyT, TransitionT>>& transitions_shuffled(std::mt19937& rng) {
+			std::shuffle(transitions_.begin(), transitions_.end(), rng);
 			return transitions_;
 		}
 
