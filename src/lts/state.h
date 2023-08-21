@@ -34,8 +34,12 @@ namespace nightly {
 		}
 
 		const std::vector<Transition<KeyT, TransitionT>>& transitions_shuffled(std::mt19937& rng) {
-			std::shuffle(transitions_.begin(), transitions_.end(), rng);
+			Shuffle(rng);
 			return transitions_;
+		}
+
+		void Shuffle(std::mt19937& rng) {
+			std::shuffle(transitions_.begin(), transitions_.end(), rng);
 		}
 
 		void AddTransition(const TransitionT& label, const KeyT& end_state) {
