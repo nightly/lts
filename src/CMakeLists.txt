@@ -12,9 +12,7 @@ set(LTS_SOURCES "lts/lts.h" "lts/state.h" "lts/transition.h"
 
 add_library(lts STATIC ${LTS_SOURCES})
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET lts PROPERTY CXX_STANDARD 20)
-endif()
+target_compile_features(lts PUBLIC cxx_std_20)
 
 if (LTS_UNITY)
     set_target_properties(lts PROPERTIES UNITY_BUILD ON)
@@ -37,7 +35,7 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/external/boost/type_traits" "external/bo
 add_subdirectory("${PROJECT_SOURCE_DIR}/external/boost/static_assert" "external/boost/static_assert")
 
 target_link_libraries(lts 
-    INTERFACE
+    PUBLIC
         unordered_dense
 		Boost::container_hash
 )

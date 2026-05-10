@@ -86,5 +86,6 @@ namespace nightly {
 	std::ofstream& operator<<(std::ofstream& os, const LTS<_KeyT, _TransitionT, _HashF>& lts) {
 		nightly::Styling style;
 		PrintGraphVizLTS(os, lts, style);
+		return os;
 	}
 }
